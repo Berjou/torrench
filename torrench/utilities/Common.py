@@ -538,22 +538,28 @@ class Common:
                         [TR_AUTH="username:password"]
                     2. For SERVER and PORT:
                         Set the SERVER and PORT variables in torrench.ini file.
+                        Otherwise, you can set the URL variable which overrides
+                        SERVER/PORT variables.
 
                     If None of the above are set, following default values are used:
                     DEFAULTS
                     Username - [None]
                     password - [None]
+                    URL - [None]
                     SERVER - localhost (127.0.0.1)
                     PORT - 9091
                 """
                 if client == 'transmission-remote':
-                    server = self.config.get('Torrench-Config', 'SERVER')
-                    port = self.config.get('Torrench-Config', 'PORT')
-                    if server == '':
-                        server = "localhost"
-                    if port == '':
-                        port = "9091"
-                    connect = "%s:%s" % (server, port)
+                    if self.config.has_option('Torrench-Config', 'URL'):
+                        connect = self.config.get('Torrench-Config', 'URL')
+                    else:
+                        server = self.config.get('Torrench-Config', 'SERVER')
+                        port = self.config.get('Torrench-Config', 'PORT')
+                        if server == '':
+                            server = "localhost"
+                        if port == '':
+                            port = "9091"
+                        connect = "%s:%s" % (server, port)
                     p = subprocess.Popen([client, connect, '-ne', '--add', link], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
                     e = p.communicate()  # `e` is a tuple.
                     error = e[1].decode('utf-8')

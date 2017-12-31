@@ -194,10 +194,12 @@ Additional options:
     * **(IMP)** For AUTHENTICATION - ```$TR_AUTH``` environment variable is used.
         * [TR_AUTH="username:password"]
     * **(IMP)** For PORT/SERVER - Set the PORT and SERVER variable in **[torrench.ini](https://github.com/kryptxy/torrench/blob/master/torrench.ini)** file accordingly.
+      Otherwise, you can set the URL variable, which overrides the PORT/SERVER variables.
         * If ```$TR_AUTH``` or PORT/SERVER are not set, the following (default) values are used:
         * DEFAULTS
             * Username - [None]
             * password - [None]
+            * URL - [None]
             * SERVER - localhost (127.0.0.1)
             * PORT - 9091
 
